@@ -3,12 +3,21 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import useCurrentUser from "../hooks/useCurrentUser";
+import { PrismaClient, User } from "@prisma/client"; // Import User from PrismaClient
+
+const prisma = new PrismaClient();
+
+// Define a TypeScript interface for the user object
+interface UserProfile {
+	name: string;
+	username: string;
+	email: string;
+}
 
 export async function getServerSideProps(context: NextPageContext) {
 	const session = await getSession(context);
 
-	if (!session) {
+	if (!session || !session.user?.email) {
 		return {
 			redirect: {
 				destination: "/auth",
@@ -16,17 +25,42 @@ export async function getServerSideProps(context: NextPageContext) {
 			},
 		};
 	}
+
+	// Fetch user data from the database based on the email from the session
+	const user: User | null = await prisma.user.findUnique({
+		where: {
+			email: session.user.email,
+		},
+	});
+
+	if (!user) {
+		return {
+			redirect: {
+				destination: "/auth",
+				permanent: false,
+			},
+		};
+	}
+
+	// Cast the retrieved user to the UserProfile interface
+	const userProfile: UserProfile = {
+		name: user.name,
+		username: user.username,
+		email: user.email,
+	};
+
 	return {
-		props: {},
+		props: {
+			user: userProfile, // Pass userProfile as props
+		},
 	};
 }
 
-const Profile = () => {
+const Profile = ({ user }: { user: UserProfile }) => {
 	const router = useRouter();
-	const { data: user, isLoading } = useCurrentUser();
 
-	if (isLoading) {
-		return <div>Loading...</div>;
+	if (!user) {
+		return <div>Loading...</div>; // Handle loading state
 	}
 
 	return (
@@ -50,8 +84,12 @@ const Profile = () => {
 						</div>
 					</div>
 					<div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-						{user ? user.username : "User Name"}
+						{user.name}
 					</div>
+					<div className="text-gray-400 text-lg text-center">
+						@{user.username}
+					</div>
+					<div className="text-gray-400 text-lg text-center">{user.email}</div>
 				</div>
 			</div>
 		</div>
