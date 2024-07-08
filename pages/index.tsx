@@ -6,6 +6,7 @@ import BillBoard from "./components/BillBoard ";
 import MovieList from "./components/MovieList";
 import useMovieList from "@/hooks/useMovieList";
 import Rowlist from "./components/Rowlist";
+import Footer from "./components/Footer";
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -30,6 +31,7 @@ export default function Home() {
 			<Navbar />
 			<BillBoard />
 			<Rowlist />
+			<Footer />
 		</>
 	);
 }

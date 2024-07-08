@@ -2,13 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;700;800;900&family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body {
   @apply bg-zinc-900 h-full overflow-auto;
+  font-family: 'Lexend', sans-serif;
 }
 
-#__next{
-  @apply h-full
+#__next {
+  @apply h-full;
 }
-html{
-  @apply h-full
+
+html {
+  @apply h-full;
 }

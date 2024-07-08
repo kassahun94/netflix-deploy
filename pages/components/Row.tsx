@@ -44,10 +44,10 @@ const Row: React.FC<RowProps> = ({ title, fetchUrl, isLargeRow }) => {
 		} else {
 			movieTrailer(movie?.title || movie?.name || movie?.original_name || "")
 				.then((url: string) => {
-					console.log("Trailer URL:", url); 
+					console.log("Trailer URL:", url);
 					const urlParams = new URLSearchParams(new URL(url).search);
 					const videoId = urlParams.get("v");
-					console.log("Video ID:", videoId); 
+					console.log("Video ID:", videoId);
 					setTrailerUrl(videoId || "");
 				})
 				.catch((error: Error) => {
@@ -66,7 +66,7 @@ const Row: React.FC<RowProps> = ({ title, fetchUrl, isLargeRow }) => {
 
 	return (
 		<div className="ml-5 text-white">
-			<h1>{title}</h1>
+			<h1 className="text-xl my-2 mx-0 font-bold isolate">{title}</h1>
 			<div
 				className="flex overflow-x-scroll p-5"
 				style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
