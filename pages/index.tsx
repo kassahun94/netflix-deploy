@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import BillBoard from "./components/BillBoard ";
 import MovieList from "./components/MovieList";
 import useMovieList from "@/hooks/useMovieList";
+import Rowlist from "./components/Rowlist";
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -28,9 +29,7 @@ export default function Home() {
 		<>
 			<Navbar />
 			<BillBoard />
-			<div className="pb-40">
-				<MovieList title="Trending Now" data={movies} />
-			</div>
+			<Rowlist />
 		</>
 	);
 }
