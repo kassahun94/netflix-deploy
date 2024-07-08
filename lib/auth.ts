@@ -1,7 +1,7 @@
 // lib/auth.ts
 import bcrypt from "bcrypt";
 
-const saltRounds = 10; // Adjust according to your security requirements
+const saltRounds = 10; 
 
 export const hashPassword = async (password: string): Promise<string> => {
 	try {

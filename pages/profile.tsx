@@ -42,7 +42,6 @@ export async function getServerSideProps(context: NextPageContext) {
 		};
 	}
 
-	// Cast the retrieved user to the UserProfile interface
 	const userProfile: UserProfile = {
 		name: user.name,
 		username: user.username,
@@ -51,7 +50,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 	return {
 		props: {
-			user: userProfile, // Pass userProfile as props
+			user: userProfile, 
 		},
 	};
 }
@@ -60,7 +59,7 @@ const Profile = ({ user }: { user: UserProfile }) => {
 	const router = useRouter();
 
 	if (!user) {
-		return <div>Loading...</div>; // Handle loading state
+		return <div>Loading...</div>; 
 	}
 
 	return (
@@ -84,10 +83,10 @@ const Profile = ({ user }: { user: UserProfile }) => {
 						</div>
 					</div>
 					<div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-						{user.name}
+						{user ?.name}
 					</div>
 					<div className="text-gray-400 text-lg text-center">
-						@{user.username}
+						{user.username}
 					</div>
 					<div className="text-gray-400 text-lg text-center">{user.email}</div>
 				</div>
