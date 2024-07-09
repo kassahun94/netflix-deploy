@@ -1,3 +1,4 @@
+// pages/api/user.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import prismadb from "../../lib/prismadb";
 import serverAuth from "@/lib/serverAuth";
@@ -6,21 +7,25 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	if (req.method === "POST") {
+	if (req.method !== "GET") {
 		return res.status(405).end();
 	}
+
 	try {
-		await serverAuth(req);
-		const MovieCount = await prismadb.movie.count();
-		const randomIndex = Math.floor(Math.random() * MovieCount);
-		const randomMovie = await prismadb.movie.findMany({
-			take: 1,
-			skip: randomIndex,
+		const user = await serverAuth(req);
+		const userData = await prismadb.user.findUnique({
+			where: {
+				id: user.currentUser.id,
+			},
 		});
 
-		return res.status(200).json(randomMovie[0]);
+		if (!userData) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		return res.status(200).json(userData);
 	} catch (e) {
 		console.error(e);
-		return res.status(401).end(); // Unauthorized
+		return res.status(401).json({ message: "Unauthorized" });
 	}
 }

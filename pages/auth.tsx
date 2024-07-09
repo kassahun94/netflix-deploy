@@ -1,5 +1,5 @@
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Input from "./components/Input";
@@ -44,48 +44,40 @@ const Auth = () => {
 			});
 
 			if (result?.error) {
-				setErrorMessage("Login error: " + (result.error as any));
+				setErrorMessage("Login error: " + result.error);
 			}
 		} catch (error) {
 			setErrorMessage("An unexpected error occurred during login.");
 		}
 	};
 
-	const handleRegister = async (ev: React.MouseEvent<HTMLButtonElement>) => {
-		ev.preventDefault();
-
+	const register = useCallback(async () => {
 		if (!email || !password || !username) {
-			setErrorMessage("All fields are required");
+			setErrorMessage("Email, username, and password are required");
 			return;
 		}
 
 		try {
 			const response = await axios.post("/api/register", {
 				email,
+				name: username,
 				password,
-				username,
 			});
-			if (response.status === 201) {
-				handleLogin();
+
+			// If registration is successful, you can handle redirection or login here
+			await signIn("credentials", {
+				email,
+				password,
+				callbackUrl: "/profile",
+			});
+		} catch (error) {
+			if (axios.isAxiosError(error) && error.response?.status === 409) {
+				setErrorMessage("User already exists. Please use a different email.");
 			} else {
-				setErrorMessage(
-					"Registration failed with unexpected status: " + response.status
-				);
-			}
-		} catch (error: any) {
-			if (axios.isAxiosError(error)) {
-				if (error.response) {
-					setErrorMessage("Registration error: " + error.response.data.message);
-				} else if (error.request) {
-					setErrorMessage("No response received from the server.");
-				} else {
-					setErrorMessage("Error setting up the request: " + error.message);
-				}
-			} else {
-				setErrorMessage("An unexpected error occurred: " + error.message);
+				setErrorMessage("An unexpected error occurred during registration.");
 			}
 		}
-	};
+	}, [email, password, username]);
 
 	return (
 		<div
@@ -128,7 +120,7 @@ const Auth = () => {
 							/>
 						</div>
 						<button
-							onClick={variant === "login" ? handleLogin : handleRegister}
+							onClick={variant === "login" ? handleLogin : register}
 							className="bg-red-600 text-white rounded-md py-3 w-full mt-10 hover:bg-red-700 transition"
 							aria-label={variant === "login" ? "Login" : "Create Account"}
 						>

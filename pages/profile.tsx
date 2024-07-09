@@ -3,7 +3,7 @@ import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { PrismaClient, User } from "@prisma/client"; // Import User from PrismaClient
+import { PrismaClient, User } from "@prisma/client"; 
 
 const prisma = new PrismaClient();
 
@@ -50,7 +50,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
 	return {
 		props: {
-			user: userProfile, 
+			user: userProfile,
 		},
 	};
 }
@@ -59,7 +59,7 @@ const Profile = ({ user }: { user: UserProfile }) => {
 	const router = useRouter();
 
 	if (!user) {
-		return <div>Loading...</div>; 
+		return <div>Loading...</div>;
 	}
 
 	return (
@@ -74,16 +74,17 @@ const Profile = ({ user }: { user: UserProfile }) => {
 						onClick={() => router.push("/")}
 					>
 						<div className="relative w-full h-full">
-							<Image
-								src="/images/avatar.png"
-								alt="Profile Avatar"
-								layout="fill"
-								objectFit="cover"
-							/>
+							<Image 
+  src="/images/avatar.png" 
+  fill 
+  style={{ objectFit: 'cover' }} 
+  alt="Avatar" 
+/>
+
 						</div>
 					</div>
 					<div className="mt-4 text-gray-400 text-2xl text-center group-hover:text-white">
-						{user ?.name}
+						{user?.name}
 					</div>
 					<div className="text-gray-400 text-lg text-center">
 						{user.username}

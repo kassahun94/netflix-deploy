@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import axios from "../utils/axios";
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
