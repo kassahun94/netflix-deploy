@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import prismadb from "../../../lib/prismadb";
 import serverAuth from "@/lib/serverAuth";
-import handler from "../current";
 
 const myHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method !== "GET") {
