@@ -30,12 +30,17 @@ const BillBoard: React.FC = () => {
 
 		fetchNetflixOriginals();
 	}, []);
-		function truncate(str: string | undefined, n: number) {
-			console.log("Truncate input:", str, n);
-			return str?.length !== undefined && str.length > n
-				? str.substring(0, n - 1) + "..."
-				: str || "";
-		}
+
+	function truncate(str: string | undefined, maxLength: number) {
+		if (!str) return ""; 
+
+		const trimmedString = str.trim();
+		if (trimmedString.length <= maxLength) return trimmedString;
+
+		// Truncate and add ellipsis
+		return trimmedString.substring(0, maxLength - 1).trim() + "...";
+	}
+
 
 	return (
 		<div className="relative h-[56.25vw]">

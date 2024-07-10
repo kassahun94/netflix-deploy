@@ -7,7 +7,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Define a TypeScript interface for the user object
+//  TypeScript interface for the user object
 interface UserProfile {
   name: string;
   username: string;
@@ -88,7 +88,6 @@ interface UserProfile {
 				<div className="text-gray-400 text-lg text-center">
 				{user.username}
 				</div>
-				<div className="text-gray-400 text-lg text-center">{user.email}</div>
 			</div>
 			</div>
 		</div>
