@@ -17,8 +17,5 @@
 	],
 	"env": {
 		"NEXT_PUBLIC_API_KEY": "b030922ed5fdbaf16f5e14ec76406cc9"
-	},
-	"scripts": {
-		"postinstall": "prisma generate && npm run build"
 	}
 }
