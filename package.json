@@ -18,7 +18,7 @@
         "axios": "^1.7.2",
         "bcrypt": "^5.1.1",
         "lodash": "^4.17.21",
-        "movie-trailer": "^3.2.2",
+        "movie-trailer": "^3.2.1",
         "next": "^14.2.4",
         "next-auth": "^4.24.7",
         "react": "^18.3.1",
