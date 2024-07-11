@@ -1,6 +1,6 @@
 import React from "react";
 import Row from "./Row";
-import requests from "../utils/request";
+import requests from "../../lib/request";
 
 const Rowlist = () => {
 	return (

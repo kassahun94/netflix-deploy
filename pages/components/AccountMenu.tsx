@@ -1,5 +1,5 @@
 import React from "react";
-import useCurrentUser from "@/hooks/useCurrentUser";
+import useCurrentUser from "../../hooks/useCurrentUser";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 

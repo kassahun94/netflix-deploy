@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../utils/axios";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import { IoIosInformationCircleOutline } from "react-icons/io";
-import requests from "../utils/request";
+import requests from "../../lib/request";
 
 interface Movie {
 	title?: string;
@@ -32,7 +32,7 @@ const BillBoard: React.FC = () => {
 	}, []);
 
 	function truncate(str: string | undefined, maxLength: number) {
-		if (!str) return ""; 
+		if (!str) return "";
 
 		const trimmedString = str.trim();
 		if (trimmedString.length <= maxLength) return trimmedString;
@@ -40,7 +40,6 @@ const BillBoard: React.FC = () => {
 		// Truncate and add ellipsis
 		return trimmedString.substring(0, maxLength - 1).trim() + "...";
 	}
-
 
 	return (
 		<div className="relative h-[56.25vw]">
@@ -65,7 +64,7 @@ const BillBoard: React.FC = () => {
 						play
 					</button>
 					<button className="bg-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition">
-						<IoIosInformationCircleOutline className="mr-1"/>
+						<IoIosInformationCircleOutline className="mr-1" />
 						My List
 					</button>
 				</div>
