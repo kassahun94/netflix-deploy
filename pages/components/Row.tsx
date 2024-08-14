@@ -1,4 +1,4 @@
-import axios from "../utils/axios";
+import axiosInstance from "../../utils/axios";
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
@@ -27,7 +27,7 @@ const Row: React.FC<RowProps> = ({ title, fetchUrl, isLargeRow }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(fetchUrl);
+				const response = await axiosInstance.get(fetchUrl);
 				setMovies(response.data.results);
 			} catch (error) {
 				console.error("Error fetching data:", error);

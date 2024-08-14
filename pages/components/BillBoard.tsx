@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../utils/axios";
+import axiosInstance from "../../utils/axios";
 import { FaRegCirclePlay } from "react-icons/fa6";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import requests from "../../lib/request";
@@ -18,7 +18,9 @@ const BillBoard: React.FC = () => {
 	useEffect(() => {
 		const fetchNetflixOriginals = async () => {
 			try {
-				const response = await axios.get(requests.fetchNetflixOriginals);
+				const response = await axiosInstance.get(
+					requests.fetchNetflixOriginals
+				);
 				const randomIndex = Math.floor(
 					Math.random() * response.data.results.length
 				);
